@@ -1,0 +1,12 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "rules": {
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        // enable "auto fix on save" for hook dependencies warning
+        "enableDangerousAutofixThisMayCauseInfiniteLoops": true
+      }
+    ]
+  }
+}

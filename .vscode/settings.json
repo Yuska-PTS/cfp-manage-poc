@@ -1,0 +1,45 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+
+  "// comment0": "For fixing format issue: Smicolon suddenly appears and then disappears immediately when formatting the file with Prettier or Stylistic.",
+  "javascript.format.semicolons": "remove",
+  "typescript.format.semicolons": "remove",
+
+  "// comment1": "Tailwind CSS IntelliSense recommended settings",
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "// comment2": "Tailwind CSS IntelliSense recommended settings",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  "[tsx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
