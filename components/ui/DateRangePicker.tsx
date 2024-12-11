@@ -6,6 +6,7 @@ import { CalendarIcon } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Calendar } from '@/components/ui/Calendar'
 import { forwardRef, useState } from 'react'
+import { DateRange } from 'react-day-picker'
 
 import {
   Popover,
@@ -17,27 +18,27 @@ import { cn } from '@/lib/utils'
 const FORMAT_PATTERN = 'yyyy-MM-dd'
 
 type Props = {
-  placeholder?: string
   className?: string | string[]
-  onChange?: (value?: Date | undefined) => void
-  value?: Date
+  onChange?: (value?: DateRange | undefined) => void
+  value?: DateRange
 }
 
-const DatePicker = forwardRef<HTMLDivElement, Props>(
-  (
-    { placeholder = '請輸入日期', value, onChange, className, ...rest },
-    ref
-  ) => {
-    const [date, setDate] = useState<Date | undefined>(value)
+const DateRangePicker = forwardRef<HTMLDivElement, Props>(
+  ({ value, onChange, className, ...rest }, ref) => {
+    const [dateRange, setDateRange] = useState<DateRange | undefined>(value)
 
-    function onSelect(value?: Date) {
-      setDate(value)
+    function onSelect(value?: DateRange) {
+      setDateRange(value)
       if (onChange) {
         onChange(value)
       }
     }
 
-    const dateText = date ? format(date, FORMAT_PATTERN) : placeholder
+    const dateRangeText = dateRange?.from
+      ? dateRange.to
+        ? `${format(dateRange.from, FORMAT_PATTERN)} ~ ${format(dateRange.to, FORMAT_PATTERN)}`
+        : format(dateRange.from, FORMAT_PATTERN)
+      : '請選擇日期'
 
     return (
       <div ref={ref} className={cn('grid gap-2', className)} {...rest}>
@@ -48,19 +49,21 @@ const DatePicker = forwardRef<HTMLDivElement, Props>(
               variant={'outline'}
               className={cn(
                 'justify-start text-left font-normal',
-                !date && 'text-muted-foreground'
+                !dateRange && 'text-muted-foreground'
               )}
             >
               <CalendarIcon />
-              {dateText}
+              {dateRangeText}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
-              mode="single"
-              selected={date}
-              onSelect={onSelect}
               initialFocus
+              mode="range"
+              defaultMonth={dateRange?.from}
+              selected={dateRange}
+              onSelect={onSelect}
+              numberOfMonths={2}
             />
           </PopoverContent>
         </Popover>
@@ -69,6 +72,6 @@ const DatePicker = forwardRef<HTMLDivElement, Props>(
   }
 )
 
-DatePicker.displayName = 'DatePicker'
+DateRangePicker.displayName = 'DateRangePicker'
 
-export default DatePicker
+export default DateRangePicker
