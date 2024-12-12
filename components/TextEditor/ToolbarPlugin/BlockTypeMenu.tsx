@@ -234,7 +234,7 @@ export default function BlockTypeMenu() {
           <ChevronsUpDown className="ml-auto opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="z-10 mt-1 w-44 p-0">
+      <PopoverContent className="z-50 mt-1 w-44 p-0">
         <Command>
           <CommandList className="rounded-md border">
             <CommandGroup>

@@ -4,8 +4,7 @@ import { Reorder } from 'motion/react'
 import { usePageContext } from './context'
 
 export default function FormItemEditor() {
-  const { configs, setConfigs, removeConfig, addConfig, updateConfig } =
-    usePageContext()
+  const { configs, setConfigs, removeConfig, updateConfig } = usePageContext()
 
   return (
     <div className="overflow-y-auto border-r border-border/40 p-4 dark:border-border">

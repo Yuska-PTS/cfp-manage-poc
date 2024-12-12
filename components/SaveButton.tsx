@@ -19,7 +19,11 @@ export default function SaveButton({
   const [isIconVisible, setIsIconVisible] = useState(true)
 
   useEffect(() => {
-    status === 'idle' ? setIsIconVisible(false) : setIsIconVisible(true)
+    if (status === 'idle') {
+      setIsIconVisible(false)
+    } else {
+      setIsIconVisible(true)
+    }
 
     let timeoutId: NodeJS.Timeout
     if (status === 'success') {

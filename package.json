@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.12",
     "@hookform/resolvers": "^3.9.1",
     "@lexical/code": "^0.21.0",
     "@lexical/link": "^0.21.0",
