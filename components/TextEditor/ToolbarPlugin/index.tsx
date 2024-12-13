@@ -1,9 +1,10 @@
 import { ScrollArea, ScrollBar } from '@/components/ui/ScrollArea'
+
 import BlockTypeMenu from './BlockTypeMenu'
-import BoldButton from './BoldButton'
-import CodeButton from './CodeButton'
-import ItalicButton from './ItalicButton'
-import LinkButton from './LinkButton'
+import BoldToggle from './BoldToggle'
+import CodeToggle from './CodeToggle'
+import ItalicToggle from './ItalicToggle'
+import LinkToggle from './LinkToggle'
 import RedoButton from './RedoButton'
 import UndoButton from './UndoButton'
 
@@ -14,10 +15,10 @@ export default function ToolbarPlugin() {
         <UndoButton />
         <RedoButton />
         <BlockTypeMenu />
-        <BoldButton />
-        <ItalicButton />
-        <CodeButton />
-        <LinkButton />
+        <BoldToggle />
+        <ItalicToggle />
+        <CodeToggle />
+        <LinkToggle />
       </div>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>

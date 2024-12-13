@@ -13,7 +13,7 @@ import { computePosition, flip, offset } from '@floating-ui/dom'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { mergeRegister } from '@lexical/utils'
-import { Edit, Save } from 'lucide-react'
+import { Check, Edit } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getSelectedNode } from './utils'
@@ -88,7 +88,7 @@ export default function LinkEditorPlugin() {
 
     setIsVisible(true)
     setLastSelection(selection)
-  }, [])
+  }, [editor])
 
   useEffect(() => {
     function onScroll() {
@@ -175,7 +175,7 @@ export default function LinkEditorPlugin() {
                   className="shrink-0"
                   onClick={() => saveLinkUrl()}
                 >
-                  <Save />
+                  <Check />
                 </Button>
               </>
             ) : (

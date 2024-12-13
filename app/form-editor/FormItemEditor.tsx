@@ -1,7 +1,7 @@
 import { Eye, Pencil, Trash2 } from 'lucide-react'
 import { Reorder } from 'motion/react'
 import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { formItems } from '@/components/FormItem'
 import { FormItemConfig } from '@/components/FormItem/types'
@@ -17,6 +17,7 @@ let ConfigFormComp: FC<{
 }> = () => null
 
 export default function FormItemEditor() {
+  const previewWin = useRef<Window | null>(null)
   const { configs, setConfigs, removeConfig, updateConfig } = usePageContext()
   const [formItemConfig, setFormItemConfig] = useState<FormItemConfig | null>(
     null
@@ -29,8 +30,16 @@ export default function FormItemEditor() {
   }, [configs, send])
 
   function openPreviewWindow() {
+    const win = previewWin.current
+    if (win && win.opener && !win.opener.closed) {
+      win.focus()
+      return
+    }
     const configsParam = encodeURIComponent(JSON.stringify(configs))
-    window.open('/form-preview?configs=' + configsParam, '_blank')
+    previewWin.current = window.open(
+      '/form-preview?configs=' + configsParam,
+      '_blank'
+    )
   }
 
   return (

@@ -1,4 +1,5 @@
 'use client'
+
 import { formItems } from '@/components/FormItem'
 import { FormItemConfig } from '@/components/FormItem/types'
 import { Form } from '@/components/ui/Form'
@@ -29,7 +30,7 @@ export default function Preview() {
   return (
     <div className="container m-auto">
       <ScrollArea className="flex-grow">
-        <div className="px-4">
+        <div className="p-4">
           <Form {...form}>
             <form className="mt-4 grid grid-cols-12 gap-4">
               {configs.map((config) => {

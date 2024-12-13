@@ -1,21 +1,20 @@
-import { Button } from '@/components/ui/Button'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND } from 'lexical'
-import { Italic } from 'lucide-react'
+import { Code } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 
-import { cn } from '@/lib/utils'
+import { Toggle } from '@/components/ui/Toggle'
 
-export default function ItalicButton() {
+export default function CodeButton() {
   const [editor] = useLexicalComposerContext()
-  const [isItalic, setIsItalic] = useState(false)
+  const [isCode, setIsCode] = useState(false)
 
   const $updateButtonState = useCallback(() => {
     const selection = $getSelection()
     if (!$isRangeSelection(selection)) {
       return
     }
-    setIsItalic(selection.hasFormat('italic'))
+    setIsCode(selection.hasFormat('code'))
   }, [])
 
   useEffect(() => {
@@ -27,19 +26,15 @@ export default function ItalicButton() {
   }, [editor, $updateButtonState])
 
   return (
-    <Button
-      className={cn(
-        'rounded-none text-muted-foreground',
-        isItalic && 'bg-accent text-accent-foreground'
-      )}
-      variant="ghost"
-      size="icon"
-      aria-label="斜體"
+    <Toggle
+      className="rounded-none"
+      aria-label="程式碼"
+      pressed={isCode}
       onClick={() => {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
       }}
     >
-      <Italic />
-    </Button>
+      <Code />
+    </Toggle>
   )
 }

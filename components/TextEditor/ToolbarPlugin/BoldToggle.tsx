@@ -1,21 +1,19 @@
-import { Button } from '@/components/ui/Button'
+import { Toggle } from '@/components/ui/Toggle'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND } from 'lexical'
-import { Code } from 'lucide-react'
+import { Bold } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 
-import { cn } from '@/lib/utils'
-
-export default function CodeButton() {
+export default function BoldButton() {
   const [editor] = useLexicalComposerContext()
-  const [isCode, setIsCode] = useState(false)
+  const [isBold, setIsBold] = useState(false)
 
   const $updateButtonState = useCallback(() => {
     const selection = $getSelection()
     if (!$isRangeSelection(selection)) {
       return
     }
-    setIsCode(selection.hasFormat('code'))
+    setIsBold(selection.hasFormat('bold'))
   }, [])
 
   useEffect(() => {
@@ -27,19 +25,15 @@ export default function CodeButton() {
   }, [editor, $updateButtonState])
 
   return (
-    <Button
-      className={cn(
-        'rounded-none text-muted-foreground',
-        isCode && 'bg-accent text-accent-foreground'
-      )}
-      variant="ghost"
-      size="icon"
-      aria-label="程式碼"
+    <Toggle
+      className="rounded-none"
+      aria-label="粗體"
+      pressed={isBold}
       onClick={() => {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
       }}
     >
-      <Code />
-    </Button>
+      <Bold />
+    </Toggle>
   )
 }

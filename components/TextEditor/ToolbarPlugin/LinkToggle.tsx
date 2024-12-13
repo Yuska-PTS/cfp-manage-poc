@@ -3,9 +3,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $getSelection, $isRangeSelection } from 'lexical'
 import { Link } from 'lucide-react'
 
-import { Button } from '@/components/ui/Button'
-
-import { cn } from '@/lib/utils'
+import { Toggle } from '@/components/ui/Toggle'
 import { useCallback, useEffect, useState } from 'react'
 import { getSelectedNode } from '../utils'
 
@@ -49,17 +47,13 @@ export default function LinkButton() {
   }, [editor, $updateButtonState])
 
   return (
-    <Button
-      className={cn(
-        'rounded-none text-muted-foreground',
-        isLink && 'bg-accent text-accent-foreground'
-      )}
-      variant="ghost"
-      size="icon"
+    <Toggle
+      className="rounded-none"
       aria-label="插入連結"
+      pressed={isLink}
       onClick={insertLink}
     >
       <Link />
-    </Button>
+    </Toggle>
   )
 }
