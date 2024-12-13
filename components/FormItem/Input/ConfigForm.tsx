@@ -12,18 +12,19 @@ import {
 import { Input } from '@/components/ui/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import BaseConfigDialog from '../BaseConfigDialog'
 import type { Config } from './index'
 import { configSchema, displayName } from './index'
 
 import { useState } from 'react'
+import ConfigFormWrap from '../ConfigFormWrap'
 
 type Props = {
+  className?: string
   config: Config
   onSave: (config: Config) => void
 }
 
-export default function ConfigDialog({ config, onSave }: Props) {
+export default function ConfigForm({ config, onSave, className }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
 
   const form = useForm<Config>({
@@ -31,20 +32,23 @@ export default function ConfigDialog({ config, onSave }: Props) {
     defaultValues: { ...config }
   })
 
-  function submit() {
-    form.handleSubmit((data) => {
+  async function submit() {
+    await form.handleSubmit((data) => {
       onSave(data)
       setStatus('success')
+      return false
     })()
     console.log(form.getValues())
     console.log(form.formState)
+    return open
   }
 
   return (
-    <BaseConfigDialog
-      title={displayName + '設定'}
+    <ConfigFormWrap
+      title={displayName}
       status={status}
       onSave={submit}
+      className={className}
     >
       <Form {...form}>
         <div className="flex flex-col gap-4">
@@ -156,6 +160,6 @@ export default function ConfigDialog({ config, onSave }: Props) {
           />
         </div>
       </Form>
-    </BaseConfigDialog>
+    </ConfigFormWrap>
   )
 }

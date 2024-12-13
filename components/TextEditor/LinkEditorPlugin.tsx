@@ -145,7 +145,7 @@ export default function LinkEditorPlugin() {
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            className="flex min-w-48 max-w-[50vw] items-center justify-between gap-2 rounded-md border bg-background px-4 py-2 shadow-md"
+            className="flex min-w-48 max-w-64 items-center justify-between gap-2 rounded-md border bg-background px-4 py-2 shadow-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, width: 'auto' }}
             transition={{ duration: 0.2, ease: 'linear' }}

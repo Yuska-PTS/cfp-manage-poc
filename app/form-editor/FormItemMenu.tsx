@@ -25,7 +25,7 @@ export default function FormItemMenu() {
           <div
             key={itemName}
             onClick={() => addConfig(generator())}
-            className="cursor-pointer px-4 py-2 hover:bg-muted"
+            className="mt-2 cursor-pointer px-4 py-2 hover:bg-muted"
           >
             {displayName}
           </div>

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import type { BaseConfig } from '../types'
 import { baseConfigSchema } from '../types'
 
-export { default as ConfigDialog } from './ConfigDialog'
+export { default as ConfigForm } from './ConfigForm'
 export { default as FormItem } from './FormItem'
 
 export interface Config extends BaseConfig {
