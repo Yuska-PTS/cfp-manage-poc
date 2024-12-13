@@ -1,3 +1,4 @@
+import ThemeSelector from '@/components/ThemeSelector'
 import { Toaster } from '@/components/ui/Sonner'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
@@ -20,17 +21,20 @@ export const metadata: Metadata = {
 }
 
 const themeScript = `
-const preferTheme = localStorage.getItem("theme");
+const preferTheme = localStorage.getItem("theme") || 'system'
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
   ? "dark"
   : "light";
-const theme = preferTheme || systemTheme
-if (theme === "dark") {
-  document.documentElement.classList.add(theme);
+
+
+if (preferTheme === 'system') {
+  document.documentElement.classList.add(systemTheme);
+} else {
+  document.documentElement.classList.add(preferTheme);
 }
 
-if (theme === 'dark') {
-  document.documentElement.classList.add('dark')
+if (!localStorage.getItem("theme")) {
+  localStorage.setItem("theme", "system");
 }
 `
 
@@ -47,10 +51,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
-        {/* <ThemeProvider>{children}</ThemeProvider> */}
         {children}
-
         <Toaster />
+        <ThemeSelector />
       </body>
     </html>
   )

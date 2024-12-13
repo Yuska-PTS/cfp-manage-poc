@@ -51,6 +51,7 @@ export default function FormItemEditor() {
             className="ml-auto"
             variant="ghost"
             size="icon"
+            aria-label="預覽"
             onClick={openPreviewWindow}
           >
             <Eye />

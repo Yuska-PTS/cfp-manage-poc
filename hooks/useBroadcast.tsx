@@ -1,8 +1,10 @@
 import { FormItemConfig } from '@/components/FormItem/types'
 import { useCallback, useEffect, useRef } from 'react'
+import { Theme } from './useTheme'
 
 type ChannelMessage = {
   'preview-form': FormItemConfig[]
+  theme: Theme
 }
 
 type ChannelMessageListener<T extends keyof ChannelMessage> = (

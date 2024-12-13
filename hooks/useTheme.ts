@@ -1,26 +1,42 @@
 import { useEffect, useState } from 'react'
 
-type Theme = 'light' | 'dark'
+export type Theme = 'light' | 'dark' | 'system'
 
-function updateDom(isDark: boolean) {
-  if (isDark) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
+const STORAGE_KEY = 'theme'
+
+function updateDom(theme: Theme) {
+  const classList = document.documentElement.classList
+
+  switch (theme) {
+    case 'dark':
+      classList.remove('light')
+      classList.add('dark')
+      break
+
+    case 'light':
+      classList.remove('dark')
+      classList.add('light')
+      break
+
+    case 'system':
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light'
+      classList.remove('light', 'dark')
+      classList.add(systemTheme)
+      break
   }
 }
 
 export default function useTheme() {
   const [theme, setTheme] = useState<Theme>()
 
-  // initial theme value
+  // sync theme value from localStorage
   // since only client side can access document, so put it inside useEffect
   useEffect(() => {
-    const currentTheme = document.documentElement.classList.contains('dark')
-      ? 'dark'
-      : 'light'
-
-    setTheme(currentTheme)
+    const theme = localStorage.getItem(STORAGE_KEY) as Theme
+    setTheme(theme)
   }, [])
 
   useEffect(() => {
@@ -28,11 +44,10 @@ export default function useTheme() {
 
     function listener({ matches: isDark }: Pick<MediaQueryList, 'matches'>) {
       // already have prefered theme
-      if (localStorage.getItem('theme')) {
-        return
+      const theme = localStorage.getItem(STORAGE_KEY) as Theme
+      if (theme === 'system') {
+        updateDom(theme)
       }
-      updateDom(isDark)
-      setTheme(isDark ? 'dark' : 'light')
     }
 
     matchMedia.addEventListener('change', listener)
@@ -41,10 +56,16 @@ export default function useTheme() {
   }, [])
 
   function changeTheme(value: Theme) {
-    updateDom(value === 'dark')
-    localStorage.setItem('theme', value)
+    updateDom(value)
+    localStorage.setItem(STORAGE_KEY, value)
     setTheme(value)
   }
 
-  return { theme, changeTheme }
+  function refresh() {
+    const theme = localStorage.getItem(STORAGE_KEY) as Theme
+    setTheme(theme)
+    updateDom(theme)
+  }
+
+  return { theme, changeTheme, refresh }
 }
