@@ -8,6 +8,7 @@ import { FormItemConfig } from '@/components/FormItem/types'
 import { Button } from '@/components/ui/Button'
 import { ScrollArea } from '@/components/ui/ScrollArea'
 import useBroadcast from '@/hooks/useBroadcast'
+import { cn } from '@/lib/utils'
 import { usePageContext } from './context'
 
 let ConfigFormComp: FC<{
@@ -19,7 +20,7 @@ let ConfigFormComp: FC<{
 export default function FormItemEditor() {
   const previewWin = useRef<Window | null>(null)
   const { configs, setConfigs, removeConfig, updateConfig } = usePageContext()
-  const [formItemConfig, setFormItemConfig] = useState<FormItemConfig | null>(
+  const [selectedConfig, setSelectedConfig] = useState<FormItemConfig | null>(
     null
   )
 
@@ -44,8 +45,8 @@ export default function FormItemEditor() {
 
   return (
     <div className="grid grid-cols-[1fr_1fr]">
-      <div className="flex h-[100vh] flex-col border-r border-border/40 p-4 dark:border-border">
-        <h1 className="flex items-center text-xl">
+      <div className="flex h-[100vh] flex-col border-r border-border/40 dark:border-border">
+        <h1 className="flex items-center p-4 text-xl">
           <span>Edit form</span>
           <Button
             className="ml-auto"
@@ -62,7 +63,7 @@ export default function FormItemEditor() {
             axis="y"
             values={configs}
             onReorder={setConfigs}
-            className="relative mt-4 flex flex-col gap-2"
+            className="relative flex flex-col gap-2"
           >
             {configs.map((config) => {
               const ConfigForm = formItems[config.itemName].ConfigForm
@@ -71,7 +72,11 @@ export default function FormItemEditor() {
                   key={config.id}
                   id={config.id}
                   value={config}
-                  className="flex cursor-grab select-none items-center rounded-md border bg-background px-4 py-2 shadow-sm"
+                  className={cn(
+                    'mx-4 flex cursor-grab select-none items-center rounded-md border bg-background px-4 py-2 shadow-sm',
+                    selectedConfig?.id === config.id &&
+                      'border-lime-500 shadow-lime-500'
+                  )}
                 >
                   <span className="mr-4 text-nowrap">{config.displayName}</span>
                   {config.label && (
@@ -85,7 +90,7 @@ export default function FormItemEditor() {
                     onClick={() => {
                       ConfigFormComp = ConfigForm
                       console.log(config)
-                      setFormItemConfig(config)
+                      setSelectedConfig(config)
                     }}
                   >
                     <Pencil />
@@ -96,8 +101,8 @@ export default function FormItemEditor() {
                     size="icon"
                     onClick={() => {
                       removeConfig(config.id)
-                      if (config.id === formItemConfig?.id) {
-                        setFormItemConfig(null)
+                      if (config.id === selectedConfig?.id) {
+                        setSelectedConfig(null)
                       }
                     }}
                   >
@@ -109,11 +114,11 @@ export default function FormItemEditor() {
           </Reorder.Group>
         </ScrollArea>
       </div>
-      {formItemConfig && (
+      {selectedConfig && (
         <ConfigFormComp
           className="h-[100vh]"
-          key={formItemConfig.id}
-          config={formItemConfig}
+          key={selectedConfig.id}
+          config={selectedConfig}
           onSave={updateConfig}
         />
       )}
