@@ -3,6 +3,7 @@
 import useTheme from '@/hooks/useTheme'
 
 import { Button } from '@/components/ui/Button'
+import { Suspense } from 'react'
 import { toast } from 'sonner'
 
 export default function ApplyLayout({
@@ -14,7 +15,7 @@ export default function ApplyLayout({
 
   return (
     <div className="container m-auto max-w-xl">
-      {children}
+      <Suspense>{children}</Suspense>
       <div className="fixed right-4 top-4 space-x-2">
         <Button
           variant="outline"
