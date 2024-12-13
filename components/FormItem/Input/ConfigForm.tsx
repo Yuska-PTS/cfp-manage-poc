@@ -33,10 +33,10 @@ export default function ConfigForm({ config, onSave, className }: Props) {
   })
 
   async function submit() {
+    setStatus('loading')
     await form.handleSubmit((data) => {
       onSave(data)
       setStatus('success')
-      return false
     })()
     console.log(form.getValues())
     console.log(form.formState)
