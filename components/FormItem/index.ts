@@ -1,4 +1,4 @@
-import * as InputFormItem from './Input'
+import * as InputFormItem from './TextInput'
 
 export const formItems = {
   [InputFormItem.itemName]: {

@@ -2,7 +2,7 @@ import {
   displayName,
   generateConfig as generateInputConfig,
   itemName
-} from '@/components/FormItem/Input/index'
+} from '@/components/FormItem/TextInput/index'
 
 import { usePageContext } from './context'
 

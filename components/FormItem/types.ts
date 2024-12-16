@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { Config as InputConfig } from './Input'
+import type { Config as InputConfig } from './TextInput'
 
 export type BaseConfig = {
   id: string

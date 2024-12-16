@@ -7,7 +7,7 @@ export { default as ConfigForm } from './ConfigForm'
 export { default as FormItem } from './FormItem'
 
 export interface Config extends BaseConfig {
-  itemName: 'input'
+  itemName: 'text-input'
   label: string
   placeholder: string
   description: string
@@ -31,7 +31,7 @@ export interface Config extends BaseConfig {
 }
 
 export const configSchema = baseConfigSchema.extend({
-  itemName: z.literal('input'),
+  itemName: z.literal('text-input'),
   label: z.string(),
   placeholder: z.string(),
   description: z.string(),
@@ -43,7 +43,7 @@ export const configSchema = baseConfigSchema.extend({
   maxLength: z.number().nullable()
 })
 
-export const itemName = 'input'
+export const itemName = 'text-input'
 export const displayName = '文字輸入欄位'
 
 export function generateConfig(): Config {
@@ -59,7 +59,7 @@ export function generateConfig(): Config {
     disabled: false,
     className: '',
     value: '',
-    committeeVisible: true,
+    committeeVisible: false,
     replaceable: false,
     maxLength: null
   }

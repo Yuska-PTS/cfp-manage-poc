@@ -25,7 +25,7 @@ type Props = {
 
 export default function ConfigForm({ config, onSave, className }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
-
+  console.log('config', config)
   const form = useForm<Config>({
     resolver: zodResolver(configSchema),
     defaultValues: { ...config }
