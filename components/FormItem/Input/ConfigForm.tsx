@@ -11,12 +11,11 @@ import {
 } from '@/components/ui/Form'
 import { Input } from '@/components/ui/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import ConfigFormWrap from '../ConfigFormWrap'
 import type { Config } from './index'
 import { configSchema, displayName } from './index'
-
-import { useState } from 'react'
-import ConfigFormWrap from '../ConfigFormWrap'
 
 type Props = {
   className?: string
@@ -115,7 +114,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
 
           <FormField
             control={form.control}
-            name="unique"
+            name="replaceable"
             render={({ field }) => (
               <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
@@ -126,10 +125,47 @@ export default function ConfigForm({ config, onSave, className }: Props) {
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel>欄位值不重複</FormLabel>
-                  <FormDescription>
-                    勾選後會跟後端確認是否有其他人有相同的值，有的話會提示錯誤且無法提交。適合用在身分證字號、email等不能重複的資料欄位。
-                  </FormDescription>
+                  <FormLabel>可補件</FormLabel>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="committeeVisible"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+                <FormControl>
+                  <Checkbox
+                    className="mt-1"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>顯示給評審看</FormLabel>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="disabled"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+                <FormControl>
+                  <Checkbox
+                    className="mt-1"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>唯讀</FormLabel>
                 </div>
                 <FormMessage />
               </FormItem>
@@ -149,7 +185,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel>欄位值不重複</FormLabel>
+                  <FormLabel>值不重複</FormLabel>
                   <FormDescription>
                     勾選後會跟後端確認是否有其他人有相同的值，有的話會提示錯誤且無法提交。適合用在身分證字號、email等不能重複的資料欄位。
                   </FormDescription>

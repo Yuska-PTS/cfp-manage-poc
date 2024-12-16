@@ -15,7 +15,8 @@ export interface Config extends BaseConfig {
   unique: boolean
   disabled: boolean
   value: string
-  inputType: 'text' | 'number' | 'email'
+  replaceable: boolean
+  maxLength: number | null
 
   // validation: {
   //   required?: boolean
@@ -38,11 +39,8 @@ export const configSchema = baseConfigSchema.extend({
   unique: z.boolean(),
   disabled: z.boolean(),
   value: z.string(),
-  inputType: z.union([
-    z.literal('text'),
-    z.literal('number'),
-    z.literal('email')
-  ])
+  replaceable: z.boolean(),
+  maxLength: z.number().nullable()
 })
 
 export const itemName = 'input'
@@ -59,10 +57,10 @@ export function generateConfig(): Config {
     note: '',
     unique: false,
     disabled: false,
-    inputType: 'text',
     className: '',
     value: '',
     committeeVisible: true,
-    replaceable: false
+    replaceable: false,
+    maxLength: null
   }
 }

@@ -29,7 +29,11 @@ export default function FormInput({ form, config }: Props) {
           {config.description && <MarkdownToHtml value={config.description} />}
 
           <FormControl>
-            <Input placeholder={config.placeholder} {...field} />
+            <Input
+              placeholder={config.placeholder}
+              {...field}
+              disabled={config.disabled}
+            />
           </FormControl>
 
           {config.note && <FormNote className="prose">{config.note}</FormNote>}
