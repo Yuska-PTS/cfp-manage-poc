@@ -6,7 +6,7 @@ export default function ApplyLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="container m-auto max-w-xl">
+    <div className="container m-auto min-h-screen max-w-xl">
       <Suspense>{children}</Suspense>
     </div>
   )
