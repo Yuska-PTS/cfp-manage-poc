@@ -42,11 +42,13 @@ export default function useTheme() {
   useEffect(() => {
     const matchMedia = window.matchMedia('(prefers-color-scheme: dark)')
 
-    function listener({ matches: isDark }: Pick<MediaQueryList, 'matches'>) {
-      // already have prefered theme
-      const theme = localStorage.getItem(STORAGE_KEY) as Theme
-      if (theme === 'system') {
-        updateDom(theme)
+    function listener() {
+      const preferedTheme = localStorage.getItem(STORAGE_KEY) as Theme
+      // preferedTheme === 'system' means user prefer change theme with system configuration.
+      // When this listener is triggered, it means system theme has changed, so here we call
+      // updateDom() to update the theme.
+      if (preferedTheme === 'system') {
+        updateDom(preferedTheme)
       }
     }
 
