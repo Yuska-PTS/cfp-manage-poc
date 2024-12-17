@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Preview() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
+  const [status] = useState<'idle' | 'loading' | 'success'>('idle')
   const params = useSearchParams()
   const [configs, setConfigs] = useState<FormItemConfig[]>(() => {
     const configsQuery = params.get('configs') || '[]'
