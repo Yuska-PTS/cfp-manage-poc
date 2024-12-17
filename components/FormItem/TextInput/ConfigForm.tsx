@@ -10,6 +10,13 @@ import {
   FormMessage
 } from '@/components/ui/Form'
 import { Input } from '@/components/ui/Input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/Select'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -35,8 +42,8 @@ export default function ConfigForm({ config, onSave, className }: Props) {
     setStatus('loading')
     await form.handleSubmit((data) => {
       onSave(data)
-      setStatus('success')
     })()
+    setStatus('success')
     console.log(form.getValues())
     console.log(form.formState)
     return open
@@ -107,6 +114,67 @@ export default function ConfigForm({ config, onSave, className }: Props) {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="maxLength"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>最大長度</FormLabel>
+                <FormControl>
+                  <Input type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="validation"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>格式驗證</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a verified email to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="none">無</SelectItem>
+                    <SelectItem value="email">email</SelectItem>
+                    <SelectItem value="idNo">身分證字號</SelectItem>
+                    <SelectItem value="youtubeUrl">Youtube URL</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="required"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+                <FormControl>
+                  <Checkbox
+                    className="mt-1"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>必填</FormLabel>
+                </div>
                 <FormMessage />
               </FormItem>
             )}

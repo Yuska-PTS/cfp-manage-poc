@@ -1,3 +1,4 @@
+import { validateNationalIdNo, validateYoutubeUrl } from '@/lib/validators'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import type { BaseConfig } from '../types'
@@ -14,22 +15,14 @@ export interface Config extends BaseConfig {
   note: string
   unique: boolean
   disabled: boolean
-  value: string
   replaceable: boolean
-  maxLength: number | null
 
-  // validation: {
-  //   required?: boolean
-  //   min?: number
-  //   max?: number
-  //   pattern?: string
-  // }
-
-  // value?: string | boolean | Date | number | string[]
-  // valueType?: 'timestamp' | 'number' | 'string'
-  // validations: Validation
+  required: boolean
+  maxLength: number
+  validation: 'none' | 'email' | 'idNo' | 'youtubeUrl'
 }
 
+// zod schema -----------
 export const configSchema = baseConfigSchema.extend({
   itemName: z.literal('text-input'),
   label: z.string(),
@@ -38,10 +31,17 @@ export const configSchema = baseConfigSchema.extend({
   note: z.string(),
   unique: z.boolean(),
   disabled: z.boolean(),
-  value: z.string(),
   replaceable: z.boolean(),
-  maxLength: z.number().nullable()
+  required: z.boolean(),
+  maxLength: z.coerce.number(),
+  validation: z.union([
+    z.literal('email'),
+    z.literal('idNo'),
+    z.literal('youtubeUrl'),
+    z.literal('none')
+  ])
 })
+// ----------------------
 
 export const itemName = 'text-input'
 export const displayName = '文字輸入欄位'
@@ -57,10 +57,58 @@ export function generateConfig(): Config {
     note: '',
     unique: false,
     disabled: false,
-    className: '',
-    value: '',
     committeeVisible: false,
     replaceable: false,
-    maxLength: null
+    required: false,
+    maxLength: 50,
+    validation: 'none'
   }
+}
+
+export function generateZodSchema(config: Config) {
+  let schema: z.ZodEffects<z.ZodString, string, string> | z.ZodString =
+    z.string()
+
+  if (config.required) {
+    schema = schema.min(1, { message: '欄位必填' })
+  }
+  if (config.maxLength) {
+    schema = schema.max(config.maxLength, {
+      message: `不能超過${config.maxLength}個字`
+    })
+  }
+
+  switch (config.validation) {
+    case 'email':
+      schema = schema.email('email 格式不正確')
+      break
+
+    case 'idNo':
+      schema = schema.refine(
+        (value) => {
+          return validateNationalIdNo(value)
+        },
+        () => ({ message: '身分證字號不正確' })
+      )
+      break
+
+    case 'youtubeUrl':
+      schema = schema.refine(
+        (value) => {
+          return validateYoutubeUrl(value)
+        },
+        () => ({ message: 'Youtube URL 格式錯誤' })
+      )
+      break
+  }
+
+  if (config.required) {
+    return schema
+  } else {
+    return z.union([z.literal(''), schema])
+  }
+}
+
+export function generateDefaultValue() {
+  return ''
 }

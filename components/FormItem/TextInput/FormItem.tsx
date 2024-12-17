@@ -30,9 +30,11 @@ export default function FormInput({ form, config }: Props) {
 
           <FormControl>
             <Input
+              type={config.validation === 'email' ? 'email' : 'text'}
               placeholder={config.placeholder}
               {...field}
               disabled={config.disabled}
+              maxLength={config.maxLength}
             />
           </FormControl>
 
