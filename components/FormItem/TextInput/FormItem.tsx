@@ -39,7 +39,6 @@ export default function FormInput({ form, config }: Props) {
               placeholder={config.placeholder}
               {...field}
               disabled={config.disabled}
-              maxLength={config.maxLength}
             />
           </FormControl>
 
