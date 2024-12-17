@@ -29,7 +29,7 @@ const COUNTY_CODE = {
 
 type CountyCodeKey = keyof typeof COUNTY_CODE
 
-const ID_DIGIT_MULTIPLIER = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1]
+const ID_LOGICAL_MULTIPLIER = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1]
 
 export function validateNationalIdNo(value: string): boolean {
   if (!/^[a-zA-Z](1|2)\d{8}$/.test(value)) {
@@ -46,11 +46,13 @@ export function validateNationalIdNo(value: string): boolean {
   const digits = [Math.floor(countyValue / 10), countyValue % 10, ...restDigits]
 
   const sum = digits.reduce((accumulator, currentValue, index) => {
-    return accumulator + currentValue * ID_DIGIT_MULTIPLIER[index]
+    return accumulator + currentValue * ID_LOGICAL_MULTIPLIER[index]
   }, 0)
 
   return sum % 10 === 0
 }
+
+// ---------------------------------------------------
 
 /**
  * valid url example:
@@ -84,4 +86,48 @@ export function validateYoutubeUrl(url = '') {
   }
 
   return isValid
+}
+
+// ---------------------------------------------------
+
+// GUI: Government Uniform Invoice number (統一編號)
+const GUI_LOGICAL_MULTIPLIER = [1, 2, 1, 2, 1, 2, 4, 1]
+
+export function validateGuiNumber(value: string) {
+  if (!/^\d{8}$/.test(value)) {
+    return false
+  }
+
+  const digits = value.split('').map((char) => parseInt(char))
+  const hasSecondLogic = digits[6] === 7
+
+  function digitSum(value: number) {
+    if (value < 10) {
+      return value
+    }
+
+    const first = Math.floor(value / 10)
+    const second = value % 10
+
+    return digitSum(first + second)
+  }
+
+  const multiplyResults = digits.map((digit, index) => {
+    const multiplyValue = digit * GUI_LOGICAL_MULTIPLIER[index]
+    return digitSum(multiplyValue)
+  })
+
+  const sum = multiplyResults.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue
+  }, 0)
+
+  if (sum % 5 === 0) {
+    return true
+  }
+
+  if (hasSecondLogic && (sum - 1) % 5 === 0) {
+    return true
+  }
+
+  return false
 }

@@ -126,7 +126,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
               <FormItem>
                 <FormLabel>最大長度</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} />
+                  <Input type="number" {...field} min={1} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -152,6 +152,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
                     <SelectItem value="none">無</SelectItem>
                     <SelectItem value="email">email</SelectItem>
                     <SelectItem value="idNo">身分證字號</SelectItem>
+                    <SelectItem value="gui">統一編號</SelectItem>
                     <SelectItem value="youtubeUrl">Youtube URL</SelectItem>
                   </SelectContent>
                 </Select>

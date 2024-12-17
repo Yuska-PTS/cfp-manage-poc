@@ -1,4 +1,8 @@
-import { validateNationalIdNo, validateYoutubeUrl } from '@/lib/validators'
+import {
+  validateGuiNumber,
+  validateNationalIdNo,
+  validateYoutubeUrl
+} from '@/lib/validators'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import type { BaseConfig } from '../types'
@@ -16,10 +20,10 @@ export interface Config extends BaseConfig {
   unique: boolean
   disabled: boolean
   replaceable: boolean
-
   required: boolean
   maxLength: number
-  validation: 'none' | 'email' | 'idNo' | 'youtubeUrl'
+  // GUI: Government Uniform Invoice number (統一編號)
+  validation: 'none' | 'email' | 'idNo' | 'youtubeUrl' | 'gui'
 }
 
 // zod schema -----------
@@ -38,6 +42,7 @@ export const configSchema = baseConfigSchema.extend({
     z.literal('email'),
     z.literal('idNo'),
     z.literal('youtubeUrl'),
+    z.literal('gui'),
     z.literal('none')
   ])
 })
@@ -89,6 +94,15 @@ export function generateZodSchema(config: Config) {
           return validateNationalIdNo(value)
         },
         () => ({ message: '身分證字號不正確' })
+      )
+      break
+
+    case 'gui':
+      schema = schema.refine(
+        (value) => {
+          return validateGuiNumber(value)
+        },
+        () => ({ message: '統一編號格式錯誤' })
       )
       break
 
