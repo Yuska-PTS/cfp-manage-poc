@@ -24,7 +24,12 @@ export default function FormInput({ form, config }: Props) {
       name={config.id}
       render={({ field }) => (
         <FormItem className="col-span-12">
-          <FormLabel>{config.label}</FormLabel>
+          <FormLabel>
+            <span>{config.label}</span>
+            {config.required && config.label && (
+              <span className="ml-1 font-bold text-red-500">*</span>
+            )}
+          </FormLabel>
 
           {config.description && <MarkdownToHtml value={config.description} />}
 
