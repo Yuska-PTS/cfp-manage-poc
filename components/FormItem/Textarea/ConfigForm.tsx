@@ -3,37 +3,29 @@ import { Checkbox } from '@/components/ui/Checkbox'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
 } from '@/components/ui/Form'
 import { Input } from '@/components/ui/Input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/Select'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ConfigFormWrap from '../ConfigFormWrap'
-import type { TextInputConfig } from './index'
+import type { TextareaConfig } from './index'
 import { configSchema, itemDisplayName } from './index'
 
 type Props = {
   className?: string
-  config: TextInputConfig
-  onSave: (config: TextInputConfig) => void
+  config: TextareaConfig
+  onSave: (config: TextareaConfig) => void
 }
 
 export default function ConfigForm({ config, onSave, className }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
-  console.log('config', config)
-  const form = useForm<TextInputConfig>({
+
+  const form = useForm<TextareaConfig>({
     resolver: zodResolver(configSchema),
     defaultValues: { ...config }
   })
@@ -45,7 +37,6 @@ export default function ConfigForm({ config, onSave, className }: Props) {
     })()
     setStatus('success')
     console.log(form.getValues())
-    console.log(form.formState)
     return open
   }
 
@@ -135,34 +126,6 @@ export default function ConfigForm({ config, onSave, className }: Props) {
 
           <FormField
             control={form.control}
-            name="validation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>格式驗證</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="none">無</SelectItem>
-                    <SelectItem value="email">email</SelectItem>
-                    <SelectItem value="idNo">身分證字號</SelectItem>
-                    <SelectItem value="gui">統一編號</SelectItem>
-                    <SelectItem value="youtubeUrl">Youtube URL</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="required"
             render={({ field }) => (
               <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
@@ -243,7 +206,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
 
           <FormField
             control={form.control}
-            name="unique"
+            name="resizable"
             render={({ field }) => (
               <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
@@ -254,10 +217,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel>值不重複</FormLabel>
-                  <FormDescription>
-                    勾選後會跟後端確認是否有其他人有相同的值，有的話會提示錯誤且無法提交。適合用在身分證字號、email等不能重複的資料欄位。
-                  </FormDescription>
+                  <FormLabel>可調整高度</FormLabel>
                 </div>
                 <FormMessage />
               </FormItem>

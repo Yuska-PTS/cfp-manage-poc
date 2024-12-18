@@ -65,7 +65,13 @@ export default function Preview() {
             <form className="mt-4 grid grid-cols-12 gap-4">
               {configs.map((config) => {
                 const FormItem = formItems[config.itemName].FormItem
-                return <FormItem form={form} key={config.id} config={config} />
+                return (
+                  <FormItem
+                    form={form}
+                    key={config.id}
+                    config={config as never}
+                  />
+                )
               })}
             </form>
           </Form>

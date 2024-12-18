@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import type { Config as TextInputConfig } from './TextInput'
+import type { TextInputConfig } from './TextInput'
+import type { TextareaConfig } from './Textarea'
 
 export type BaseConfig = {
   id: string
@@ -8,7 +9,7 @@ export type BaseConfig = {
   committeeVisible: boolean
 }
 
-export type FormItemConfig = TextInputConfig
+export type FormItemConfig = TextInputConfig | TextareaConfig
 
 export const baseConfigSchema = z.object({
   id: z.string(),

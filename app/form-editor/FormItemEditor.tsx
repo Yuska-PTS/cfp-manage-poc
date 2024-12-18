@@ -12,7 +12,8 @@ import { cn } from '@/lib/utils'
 import { usePageContext } from './context'
 
 let ConfigFormComp: FC<{
-  config: FormItemConfig
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  config: any
   className?: string
   onSave: (config: FormItemConfig) => void
 }> = () => null

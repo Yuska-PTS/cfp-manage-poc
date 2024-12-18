@@ -11,7 +11,7 @@ import { baseConfigSchema } from '../types'
 export { default as ConfigForm } from './ConfigForm'
 export { default as FormItem } from './FormItem'
 
-export interface Config extends BaseConfig {
+export interface TextInputConfig extends BaseConfig {
   itemName: 'text-input'
   label: string
   placeholder: string
@@ -49,9 +49,9 @@ export const configSchema = baseConfigSchema.extend({
 // ----------------------
 
 export const itemName = 'text-input'
-export const itemDisplayName = '文字輸入欄位'
+export const itemDisplayName = '短文字欄'
 
-export function generateConfig(): Config {
+export function generateConfig(): TextInputConfig {
   return {
     itemName,
     itemDisplayName,
@@ -70,7 +70,7 @@ export function generateConfig(): Config {
   }
 }
 
-export function generateZodSchema(config: Config) {
+export function generateZodSchema(config: TextInputConfig) {
   let schema: z.ZodEffects<z.ZodString, string, string> | z.ZodString =
     z.string()
 

@@ -8,13 +8,14 @@ import {
 } from '@/components/ui/Form'
 
 import { MarkdownToHtml } from '@/components/TextEditor'
-import { Input } from '@/components/ui/Input'
+import { Textarea } from '@/components/ui/Textarea'
+import { cn } from '@/lib/utils'
 import type { UseFormReturn } from 'react-hook-form'
-import type { TextInputConfig } from './index'
+import type { TextareaConfig } from './index'
 
 type Props = {
   form: UseFormReturn
-  config: TextInputConfig
+  config: TextareaConfig
 }
 
 export default function FormInput({ form, config }: Props) {
@@ -34,11 +35,11 @@ export default function FormInput({ form, config }: Props) {
           {config.description && <MarkdownToHtml value={config.description} />}
 
           <FormControl>
-            <Input
-              type={config.validation === 'email' ? 'email' : 'text'}
+            <Textarea
               placeholder={config.placeholder}
               {...field}
               disabled={config.disabled}
+              className={cn(!config.resizable && 'resize-none')}
             />
           </FormControl>
 

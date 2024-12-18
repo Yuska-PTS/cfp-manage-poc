@@ -1,17 +1,19 @@
 import { z } from 'zod'
 import * as InputFormItem from './TextInput'
+import * as TextareaFormItem from './Textarea'
 import { FormItemConfig } from './types'
 
 export const formItems = {
-  [InputFormItem.itemName]: {
-    ...InputFormItem
-  }
+  [InputFormItem.itemName]: { ...InputFormItem },
+  [TextareaFormItem.itemName]: { ...TextareaFormItem }
 } as const
 
 export function generateZodSchema(configs: FormItemConfig[]) {
   const schemaObject: Record<string, z.ZodTypeAny> = {}
   configs.forEach((config) => {
-    const fieldSchema = formItems[config.itemName].generateZodSchema(config)
+    const fieldSchema = formItems[config.itemName].generateZodSchema(
+      config as never
+    )
     schemaObject[config.id] = fieldSchema
   })
 
