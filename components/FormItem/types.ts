@@ -4,7 +4,7 @@ import type { Config as TextInputConfig } from './TextInput'
 export type BaseConfig = {
   id: string
   itemName: string
-  displayName: string
+  itemDisplayName: string
   committeeVisible: boolean
 }
 
@@ -13,6 +13,6 @@ export type FormItemConfig = TextInputConfig
 export const baseConfigSchema = z.object({
   id: z.string(),
   itemName: z.string(),
-  displayName: z.string(),
+  itemDisplayName: z.string(),
   committeeVisible: z.boolean()
 })

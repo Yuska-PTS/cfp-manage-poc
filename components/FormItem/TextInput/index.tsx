@@ -49,12 +49,12 @@ export const configSchema = baseConfigSchema.extend({
 // ----------------------
 
 export const itemName = 'text-input'
-export const displayName = '文字輸入欄位'
+export const itemDisplayName = '文字輸入欄位'
 
 export function generateConfig(): Config {
   return {
     itemName,
-    displayName,
+    itemDisplayName,
     id: uuidv4(),
     label: 'New field',
     placeholder: '',

@@ -22,7 +22,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ConfigFormWrap from '../ConfigFormWrap'
 import type { Config } from './index'
-import { configSchema, displayName } from './index'
+import { configSchema, itemDisplayName } from './index'
 
 type Props = {
   className?: string
@@ -51,7 +51,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
 
   return (
     <ConfigFormWrap
-      title={displayName}
+      title={itemDisplayName}
       status={status}
       onSave={submit}
       className={className}

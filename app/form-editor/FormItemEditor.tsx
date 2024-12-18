@@ -78,7 +78,9 @@ export default function FormItemEditor() {
                       'border-lime-500 shadow-lime-500'
                   )}
                 >
-                  <span className="mr-4 text-nowrap">{config.displayName}</span>
+                  <span className="mr-4 text-nowrap">
+                    {config.itemDisplayName}
+                  </span>
                   {config.label && (
                     <span className="mr-4 truncate">{config.label}</span>
                   )}
