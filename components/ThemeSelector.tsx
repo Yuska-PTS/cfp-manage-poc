@@ -12,7 +12,7 @@ export default function ThemeSelector() {
 
   useEffect(() => {
     listen(() => refresh())
-  }, [])
+  }, [listen, refresh])
 
   function handleClick(theme: Theme) {
     changeTheme(theme)
