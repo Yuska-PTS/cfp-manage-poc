@@ -6,7 +6,7 @@ import { baseConfigSchema } from '../types'
 export { default as ConfigForm } from './ConfigForm'
 export { default as FormItem } from './FormItem'
 
-export interface TextareaConfig extends BaseConfig {
+export interface Config extends BaseConfig {
   itemName: 'textarea'
   label: string
   placeholder: string
@@ -37,7 +37,7 @@ export const configSchema = baseConfigSchema.extend({
 export const itemName = 'textarea'
 export const itemDisplayName = '長文字區塊'
 
-export function generateConfig(): TextareaConfig {
+export function generateConfig(): Config {
   return {
     itemName,
     itemDisplayName,
@@ -55,7 +55,7 @@ export function generateConfig(): TextareaConfig {
   }
 }
 
-export function generateZodSchema(config: TextareaConfig) {
+export function generateZodSchema(config: Config) {
   let schema = z.string()
 
   if (config.required) {

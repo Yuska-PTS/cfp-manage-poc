@@ -6,7 +6,7 @@ export default function FormItemMenu() {
 
   return (
     <div className="'flex flex-col gap-2 overflow-y-auto border-r border-border/40 dark:border-border">
-      <h1 className="mt-4 px-4 text-xl">Components</h1>
+      <h1 className="mt-4 flex h-10 items-center px-4 text-xl">Components</h1>
       {Object.values(formItems).map((formItem) => {
         const { itemDisplayName, generateConfig } = formItem
         return (

@@ -1,4 +1,4 @@
-import type { FormItemConfig } from '@/components/FormItem/types'
+import type { FormItemConfigUnion } from '@/components/FormItem/types'
 import type { ReactNode } from 'react'
 import {
   createContext,
@@ -9,11 +9,11 @@ import {
 } from 'react'
 
 type PageContextType = {
-  configs: FormItemConfig[]
-  setConfigs: (configs: FormItemConfig[]) => void
-  addConfig: (config: FormItemConfig) => void
+  configs: FormItemConfigUnion[]
+  setConfigs: (configs: FormItemConfigUnion[]) => void
+  addConfig: (config: FormItemConfigUnion) => void
   removeConfig: (id: string) => void
-  updateConfig: (config: FormItemConfig) => void
+  updateConfig: (config: FormItemConfigUnion) => void
 }
 
 const PageContext = createContext<PageContextType>(null!)
@@ -23,10 +23,10 @@ export const usePageContext = () => {
 }
 
 export function PageContextProvider({ children }: { children: ReactNode }) {
-  const [configs, setConfigs] = useState<FormItemConfig[]>([])
+  const [configs, setConfigs] = useState<FormItemConfigUnion[]>([])
 
   const addConfig = useCallback(
-    (config: FormItemConfig) => {
+    (config: FormItemConfigUnion) => {
       setConfigs([...configs, config])
     },
     [configs]
@@ -48,7 +48,7 @@ export function PageContextProvider({ children }: { children: ReactNode }) {
   )
 
   const updateConfig = useCallback(
-    (config: FormItemConfig) => {
+    (config: FormItemConfigUnion) => {
       // TODO 要能 loop 第二層
       const index = configs.findIndex((c) => c.id === config.id)
       if (index === -1) {

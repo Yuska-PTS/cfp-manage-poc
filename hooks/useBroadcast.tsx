@@ -1,9 +1,9 @@
-import { FormItemConfig } from '@/components/FormItem/types'
+import { FormItemConfigUnion } from '@/components/FormItem/types'
 import { useCallback, useEffect, useRef } from 'react'
 import { Theme } from './useTheme'
 
 type ChannelMessage = {
-  'preview-form': FormItemConfig[]
+  'preview-form': FormItemConfigUnion[]
   theme: Theme
 }
 

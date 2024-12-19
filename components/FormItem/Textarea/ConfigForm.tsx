@@ -13,19 +13,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ConfigFormWrap from '../ConfigFormWrap'
-import type { TextareaConfig } from './index'
+import type { Config } from './index'
 import { configSchema, itemDisplayName } from './index'
 
 type Props = {
   className?: string
-  config: TextareaConfig
-  onSave: (config: TextareaConfig) => void
+  config: Config
+  onSave: (config: Config) => void
 }
 
 export default function ConfigForm({ config, onSave, className }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
 
-  const form = useForm<TextareaConfig>({
+  const form = useForm<Config>({
     resolver: zodResolver(configSchema),
     defaultValues: { ...config }
   })

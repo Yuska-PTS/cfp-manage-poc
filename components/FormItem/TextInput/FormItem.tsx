@@ -10,11 +10,11 @@ import {
 import { MarkdownToHtml } from '@/components/TextEditor'
 import { Input } from '@/components/ui/Input'
 import type { UseFormReturn } from 'react-hook-form'
-import type { TextInputConfig } from './index'
+import type { Config } from './index'
 
 type Props = {
   form: UseFormReturn
-  config: TextInputConfig
+  config: Config
 }
 
 export default function FormInput({ form, config }: Props) {

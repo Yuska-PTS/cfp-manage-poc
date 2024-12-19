@@ -5,7 +5,7 @@ import {
   generateDefaultValues,
   generateZodSchema
 } from '@/components/FormItem'
-import { FormItemConfig } from '@/components/FormItem/types'
+import { FormItemConfigMap, FormItemConfigUnion } from '@/components/FormItem/types'
 import SaveButton from '@/components/SaveButton'
 import { Form } from '@/components/ui/Form'
 import { ScrollArea } from '@/components/ui/ScrollArea'
@@ -19,9 +19,9 @@ import { useForm } from 'react-hook-form'
 export default function Preview() {
   const [status] = useState<'idle' | 'loading' | 'success'>('idle')
   const params = useSearchParams()
-  const [configs, setConfigs] = useState<FormItemConfig[]>(() => {
+  const [configs, setConfigs] = useState<FormItemConfigUnion[]>(() => {
     const configsQuery = params.get('configs') || '[]'
-    return JSON.parse(configsQuery) as FormItemConfig[]
+    return JSON.parse(configsQuery) as FormItemConfigUnion[]
   })
 
   const form = useForm({
@@ -63,13 +63,13 @@ export default function Preview() {
         <div className="p-4">
           <Form {...form}>
             <form className="mt-4 grid grid-cols-12 gap-4">
-              {configs.map((config) => {
+              {configs.map(<T extends keyof FormItemConfigMap>(config: FormItemConfigUnion<T>) => {
                 const FormItem = formItems[config.itemName].FormItem
                 return (
                   <FormItem
                     form={form}
                     key={config.id}
-                    config={config as never}
+                    config={config}
                   />
                 )
               })}

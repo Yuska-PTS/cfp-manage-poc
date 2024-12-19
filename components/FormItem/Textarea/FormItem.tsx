@@ -11,11 +11,11 @@ import { MarkdownToHtml } from '@/components/TextEditor'
 import { Textarea } from '@/components/ui/Textarea'
 import { cn } from '@/lib/utils'
 import type { UseFormReturn } from 'react-hook-form'
-import type { TextareaConfig } from './index'
+import type { Config } from './index'
 
 type Props = {
   form: UseFormReturn
-  config: TextareaConfig
+  config: Config
 }
 
 export default function FormInput({ form, config }: Props) {

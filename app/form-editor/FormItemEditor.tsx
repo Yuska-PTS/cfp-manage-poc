@@ -1,27 +1,22 @@
 import { Eye, Pencil, Trash2 } from 'lucide-react'
 import { Reorder } from 'motion/react'
-import type { FC } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { formItems } from '@/components/FormItem'
-import { FormItemConfig } from '@/components/FormItem/types'
+import { FormItemMap, formItems } from '@/components/FormItem'
+import { FormItemConfigUnion } from '@/components/FormItem/types'
 import { Button } from '@/components/ui/Button'
 import { ScrollArea } from '@/components/ui/ScrollArea'
 import useBroadcast from '@/hooks/useBroadcast'
 import { cn } from '@/lib/utils'
 import { usePageContext } from './context'
 
-let ConfigFormComp: FC<{
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  config: any
-  className?: string
-  onSave: (config: FormItemConfig) => void
-}> = () => null
+type SelectedConfigForm<T extends keyof FormItemMap = keyof FormItemMap> = FormItemMap[T]['ConfigForm']
 
 export default function FormItemEditor() {
   const previewWin = useRef<Window | null>(null)
+  const selectedConfigForm = useRef<SelectedConfigForm>()
   const { configs, setConfigs, removeConfig, updateConfig } = usePageContext()
-  const [selectedConfig, setSelectedConfig] = useState<FormItemConfig | null>(
+  const [selectedConfig, setSelectedConfig] = useState<FormItemConfigUnion | null>(
     null
   )
 
@@ -66,7 +61,7 @@ export default function FormItemEditor() {
             onReorder={setConfigs}
             className="relative flex flex-col gap-2"
           >
-            {configs.map((config) => {
+            {configs.map((config: FormItemConfigUnion) => {
               const ConfigForm = formItems[config.itemName].ConfigForm
               return (
                 <Reorder.Item
@@ -91,8 +86,7 @@ export default function FormItemEditor() {
                     variant="ghost"
                     size="icon"
                     onClick={() => {
-                      ConfigFormComp = ConfigForm
-                      console.log(config)
+                      selectedConfigForm.current = ConfigForm
                       setSelectedConfig(config)
                     }}
                   >
@@ -117,11 +111,11 @@ export default function FormItemEditor() {
           </Reorder.Group>
         </ScrollArea>
       </div>
-      {selectedConfig && (
-        <ConfigFormComp
+      {selectedConfig && selectedConfigForm.current && (
+        <selectedConfigForm.current
           className="h-[100vh]"
           key={selectedConfig.id}
-          config={selectedConfig}
+          config={selectedConfig as never}
           onSave={updateConfig}
         />
       )}
