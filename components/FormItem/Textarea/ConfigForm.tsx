@@ -48,13 +48,13 @@ export default function ConfigForm({ config, onSave, className }: Props) {
       className={className}
     >
       <Form {...form}>
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-12 gap-4">
           <FormField
             control={form.control}
             name="label"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>欄位標題</FormLabel>
+              <FormItem className="col-span-12">
+                <FormLabel>標題</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -67,7 +67,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="description"
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormItem>
+              <FormItem className="col-span-12">
                 <FormLabel>描述</FormLabel>
                 <FormControl>
                   <TextEditor
@@ -86,7 +86,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="note"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-12">
                 <FormLabel>備註</FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -100,7 +100,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="placeholder"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-12">
                 <FormLabel>預設文字</FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -114,7 +114,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="maxLength"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-6">
                 <FormLabel>最大長度</FormLabel>
                 <FormControl>
                   <Input type="number" {...field} min={1} />
@@ -128,7 +128,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="required"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+              <FormItem className="col-start-1 col-end-7 flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
                   <Checkbox
                     className="mt-1"
@@ -148,7 +148,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="replaceable"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+              <FormItem className="col-span-6 flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
                   <Checkbox
                     className="mt-1"
@@ -168,7 +168,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="committeeVisible"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+              <FormItem className="col-span-6 flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
                   <Checkbox
                     className="mt-1"
@@ -188,7 +188,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="disabled"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+              <FormItem className="col-span-6 flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
                   <Checkbox
                     className="mt-1"
@@ -208,7 +208,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             control={form.control}
             name="resizable"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start gap-4 space-y-0 px-1">
+              <FormItem className="col-span-6 flex flex-row items-start gap-4 space-y-0 px-1">
                 <FormControl>
                   <Checkbox
                     className="mt-1"

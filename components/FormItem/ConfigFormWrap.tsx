@@ -28,7 +28,7 @@ export default function ConfigFormWrap({
       <div className="p-4">
         <h2 className="text-lg font-bold">{title}設定</h2>
       </div>
-      <ScrollArea className="flex-grow">
+      <ScrollArea>
         <div className="p-4">{children}</div>
       </ScrollArea>
       <div className="border-t p-4 dark:border-border">
