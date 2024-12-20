@@ -61,14 +61,15 @@ export default function TagInput({
     const { active, over } = event
 
     if (active.id !== over?.id) {
-      setItems((its) => {
-        const oldIndex = its.indexOf(active.id as string)
-        const newIndex = its.indexOf(over?.id as string)
+      const oldIndex = items.indexOf(active.id as string)
+      const newIndex = items.indexOf(over?.id as string)
 
-        const newItems = arrayMove(its, oldIndex, newIndex)
-        itemSet.current = new Set(newItems)
-        return newItems
-      })
+      const newItems = arrayMove(items, oldIndex, newIndex)
+      itemSet.current = new Set(newItems)
+      setItems(newItems)
+      if (onChange) {
+        onChange(newItems)
+      }
     }
     setActiveId(null)
   }
@@ -110,7 +111,6 @@ export default function TagInput({
     itemSet.current.add(inputValue)
     const newValue = Array.from(itemSet.current)
     setItems(newValue)
-    console.log('clear input value')
     setInputValue('')
 
     if (onChange) {
