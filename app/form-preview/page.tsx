@@ -5,7 +5,10 @@ import {
   generateDefaultValues,
   generateZodSchema
 } from '@/components/FormItem'
-import { FormItemConfigMap, FormItemConfigUnion } from '@/components/FormItem/types'
+import {
+  FormItemConfigMap,
+  FormItemConfigUnion
+} from '@/components/FormItem/types'
 import SaveButton from '@/components/SaveButton'
 import { Form } from '@/components/ui/Form'
 import { ScrollArea } from '@/components/ui/ScrollArea'
@@ -62,17 +65,17 @@ export default function Preview() {
       <ScrollArea>
         <div className="p-4">
           <Form {...form}>
-            <form className="mt-4 grid grid-cols-12 gap-4">
-              {configs.map(<T extends keyof FormItemConfigMap>(config: FormItemConfigUnion<T>) => {
-                const FormItem = formItems[config.itemName].FormItem
-                return (
-                  <FormItem
-                    form={form}
-                    key={config.id}
-                    config={config}
-                  />
-                )
-              })}
+            <form className="mt-4 grid grid-cols-12 gap-10">
+              {configs.map(
+                <T extends keyof FormItemConfigMap>(
+                  config: FormItemConfigUnion<T>
+                ) => {
+                  const FormItem = formItems[config.itemName].FormItem
+                  return (
+                    <FormItem form={form} key={config.id} config={config} />
+                  )
+                }
+              )}
             </form>
           </Form>
         </div>
