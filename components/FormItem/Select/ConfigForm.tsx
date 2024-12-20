@@ -102,7 +102,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             name="placeholder"
             render={({ field }) => (
               <FormItem className="col-span-12">
-                <FormLabel>預設文字</FormLabel>
+                <FormLabel>提示文字</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>

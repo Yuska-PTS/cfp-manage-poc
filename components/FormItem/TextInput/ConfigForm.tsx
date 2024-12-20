@@ -57,7 +57,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
       className={className}
     >
       <Form {...form}>
-        <div className="grid grid-cols-12 gap-4 ">
+        <div className="grid grid-cols-12 gap-4">
           <FormField
             control={form.control}
             name="label"
@@ -110,7 +110,7 @@ export default function ConfigForm({ config, onSave, className }: Props) {
             name="placeholder"
             render={({ field }) => (
               <FormItem className="col-span-12">
-                <FormLabel>預設文字</FormLabel>
+                <FormLabel>提示文字</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
