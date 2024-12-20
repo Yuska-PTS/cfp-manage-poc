@@ -110,6 +110,7 @@ export default function TagInput({
     itemSet.current.add(inputValue)
     const newValue = Array.from(itemSet.current)
     setItems(newValue)
+    console.log('clear input value')
     setInputValue('')
 
     if (onChange) {
@@ -118,6 +119,11 @@ export default function TagInput({
   }
 
   function onKeydown(e: KeyboardEvent) {
+    // isComposing === true means it's input method operations(輸入法操作)
+    // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing
+    if (e.nativeEvent.isComposing) {
+      return
+    }
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault()
       addItem()
