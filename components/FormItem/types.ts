@@ -1,5 +1,9 @@
 import { z } from 'zod'
 import type {
+  Config as RadioGroupConfig,
+  itemName as RadioGroupItemName
+} from './RadioGroup'
+import type {
   Config as SelectConfig,
   itemName as SelectItemName
 } from './Select'
@@ -23,6 +27,7 @@ export type FormItemConfigMap = {
   [TextInputItemName]: TextInputConfig
   [TextareaItemName]: TextareaConfig
   [SelectItemName]: SelectConfig
+  [RadioGroupItemName]: RadioGroupConfig
 }
 
 type FormItemConfigType<T extends keyof FormItemConfigMap> = {

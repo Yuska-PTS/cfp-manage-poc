@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
+import * as RadioGroupFormItem from './RadioGroup'
 import * as SelectFormItem from './Select'
 import * as InputFormItem from './TextInput'
 import * as TextareaFormItem from './Textarea'
@@ -29,7 +30,8 @@ export type FormItemMap = {
 export const formItems: FormItemMap = {
   [InputFormItem.itemName]: InputFormItem,
   [TextareaFormItem.itemName]: TextareaFormItem,
-  [SelectFormItem.itemName]: SelectFormItem
+  [SelectFormItem.itemName]: SelectFormItem,
+  [RadioGroupFormItem.itemName]: RadioGroupFormItem
 } as const
 
 export function generateZodSchema<T extends keyof FormItemConfigMap>(
