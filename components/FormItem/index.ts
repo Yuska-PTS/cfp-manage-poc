@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
+import * as SelectFormItem from './Select'
 import * as InputFormItem from './TextInput'
 import * as TextareaFormItem from './Textarea'
 import type { FormItemConfigMap, FormItemConfigUnion } from './types'
@@ -27,11 +28,13 @@ export type FormItemMap = {
 
 export const formItems: FormItemMap = {
   [InputFormItem.itemName]: InputFormItem,
-  [TextareaFormItem.itemName]: TextareaFormItem
+  [TextareaFormItem.itemName]: TextareaFormItem,
+  [SelectFormItem.itemName]: SelectFormItem
 } as const
 
-
-export function generateZodSchema<T extends keyof FormItemConfigMap>(configs: FormItemConfigUnion<T>[]) {
+export function generateZodSchema<T extends keyof FormItemConfigMap>(
+  configs: FormItemConfigUnion<T>[]
+) {
   const schemaObject: Record<string, z.ZodTypeAny> = {}
   configs.forEach((config) => {
     const schema = formItems[config.itemName].generateZodSchema(config)
@@ -40,7 +43,9 @@ export function generateZodSchema<T extends keyof FormItemConfigMap>(configs: Fo
 
   return z.object(schemaObject)
 }
-export function generateDefaultValues<T extends keyof FormItemConfigMap>(configs: FormItemConfigUnion<T>[]) {
+export function generateDefaultValues<T extends keyof FormItemConfigMap>(
+  configs: FormItemConfigUnion<T>[]
+) {
   const defaultValues: Record<string, unknown> = {}
   configs.forEach((config) => {
     defaultValues[config.id] = formItems[config.itemName].generateDefaultValue()
